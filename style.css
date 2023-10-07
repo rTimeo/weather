@@ -1,10 +1,116 @@
-
 *{
     margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+    list-style-type: none;
+
 }
-header{
+
+
+header img{
     position: fixed;
-    top: 0;
-    bottom: 0;
+    object-fit: cover;
+    height: 100vh;
+    width: 100vw;
     z-index: -100;
 }
+
+main{
+    display: flex;
+    justify-content: space-between;
+    height: 100vh;
+}
+
+.left{
+    width: 60vw;
+    display: flex;
+    align-items: flex-end;
+    justify-content:center ;
+    
+}
+
+.bloc-left{
+    align-items: flex-end;
+    background-color: black;
+    display: flex;
+    gap: 30px;
+    margin-bottom: 130px;
+    margin-right: 200px;
+}
+.bloc-left p{
+    color: white;
+
+        white-space: nowrap;
+    
+    
+}
+
+.bloc-left  div:nth-child(2) p:first-child{
+    display: inline-block;
+    font-size: 50px;
+}
+.azerty{
+    font-size: 100px;
+    line-height: 0.8;
+
+}
+
+
+.right{
+    width: 40vw;
+    backdrop-filter: blur(20px);
+    padding: 0 0 60px 60px;
+}
+
+h2{
+    text-transform: uppercase;
+    font-size: 20px;
+    color: white;
+}
+
+.right form{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 50px;
+}
+.right input:first-child{
+    margin-top: 40px;
+    background-color: transparent;
+    width:70%;
+    border: none;
+    border-bottom: 1px solid rgb(136, 136, 136);
+    padding: 10px;
+    outline: none;
+}
+
+.right input:last-child{
+    background-image: url(images/search.png);
+    background-size: 20px;
+    background-repeat: no-repeat;
+    text-indent: -9999px; /* Cela masquera le texte du bouton */
+    width: 78px;
+    height: 78px; /* Ajustez la largeur et la hauteur en fonction de votre image */
+    border: none;
+    background-position: center center; /* Centrez l'image horizontalement et verticalement */
+
+}
+
+.details{
+    display: flex;
+    justify-content: space-between;
+    padding: 0 60px 0 0;
+}
+
+ul{
+    padding: 60px 0;
+    display: flex;
+    flex-direction: column;
+    
+    gap: 68px;
+}
+
+ul:last-child{
+    align-items: end;
+} 
+

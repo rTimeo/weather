@@ -9,6 +9,7 @@ session_start();
   
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <link rel="stylesheet" type="text/css" href="style.css">
+   <script src="script.js" defer> </script>
     <title>Entrez une ville</title>
 </head>
 <body>
@@ -43,8 +44,7 @@ if (isset($_POST['submit'])) {
             'timezone' => $weather_data["timezone"]
             ];
     } else{
-        $_SESSION['error'] = "error";
-        unset($_SESSION['weather']);
+
 
     }
     header('Location: ' . $_SERVER['PHP_SELF']);
@@ -73,76 +73,95 @@ if($description_temp == "peu nuageux"){
 }
 
 $city_time_str = "";
+$months_mapping = array(
+    "January" => "janvier",
+    "February" => "février",
+    "March" => "mars",
+    "April" => "avril",
+    "May" => "mai",
+    "June" => "juin",
+    "July" => "juillet",
+    "August" => "août",
+    "September" => "septembre",
+    "October" => "octobre",
+    "November" => "novembre",
+    "December" => "décembre"
+);
 
-if($name){
-    $timezone_offset = $weather_data['timezone'] ?? 0;  
-    $hours = intval($timezone_offset / 3600);
-    $minutes = ($timezone_offset % 3600) / 60;
-    $city_time = new DateTime('now', new DateTimeZone("UTC"));
-    $interval = new DateInterval(sprintf("PT%dH%dM", abs($hours), abs($minutes)));
 
-    if ($timezone_offset < 0) {
-        $city_time->sub($interval);
-    } else {
-        $city_time->add($interval);
-    }
-
-    $city_time_str = $city_time->format('d/m/Y - H:i');
-
+    if($name){
+        $timezone_offset = $weather_data['timezone'] ?? 0;  
+        $hours = intval($timezone_offset / 3600);
+        $minutes = ($timezone_offset % 3600) / 60;
+        $city_time = new DateTime('now', new DateTimeZone("UTC"));
+        $interval = new DateInterval(sprintf("PT%dH%dM", abs($hours), abs($minutes)));
+    
+        if ($timezone_offset < 0) {
+            $city_time->sub($interval);
+        } else {
+            $city_time->add($interval);
+        }
+    
+        $month_english = $city_time->format('F');
+        $month_french = $months_mapping[$month_english] ?? $month_english; 
+        $city_time_str = $city_time->format('d ') . $month_french . $city_time->format(' Y H:i');
+    
+    
 } else{
 
 }
 
 
-
 ?>
 
-
-
-    <header>
-        <img src="images/wallpaper.jpg" alt="wp">
+<header>
+        <img src="images/wallpaper.jpg" alt="">
     </header>
-<main> 
-    <section class="left">
-        <div class="bloc-left">
-            <p> <?php echo htmlspecialchars($temp) ?></p>
-            <div class="name-date">
-            <p> <?php echo htmlspecialchars($name) ?></p>
-
-                <div class="date">
-
-                <p> <?php echo htmlspecialchars($city_time_str) ?></p>
+    <main>
+        <section class="left">
+            <div class="bloc-left">
+            <p class="azerty"><?php echo $temp?>°</p>
+                <div>
+                    <p class="a"> <?php echo $name?></p>
+                    <p class="b"><?php echo $city_time_str ?></p>
+                    
                 </div>
+                <div>
+                    <p> <?php echo $description_temp?></p>
+                </div>
+                
             </div>
-            <div class="image-temp">
-                <p></p>
+        </section>
+        <section class="right">
+            <form method="post">
+                <input type="text" name="ville" placeholder="Ville">
+                <input type="submit" name="submit">
+            </form>
+                <h2> détails météo</h2>
+            <div class="details">
+                <ul>
+                    <li>Ressentie</li>
+                    <li>Temps max</li>
+                    <li>Temps min</li>
+                    <li>Humidité</li>
+                    <li>Ventspeed</li>
+                    <li>sysSunrise</li>
+                    <li>sysSunset</li>
+                </ul>
+
+                <ul>
+                    <li>22°</li>
+                    <li>23°</li>
+                    <li>21°</li>
+                    <li>89%</li>
+                    <li>21 km/h</li>
+                    <li>16h20</li>
+                    <li>8h20</li>
+                </ul>
+
+
             </div>
-        </div>
-
-    </section>
-
-    <section class="right">
-        <div>
-        <form method="post">
-            <input type="text" name="ville">
-            <input type="submit" name="submit" value="submit">
-        </form>
-              <?php 
-    echo $error;
-                echo $name;
-                echo $temp;
-                echo $humidity;
-                echo $temp_max;
-                echo $temp_min;
-
-            ?>
-
-        </div>
-          
-        
-    </section>
-</main>
-
-    
+        </section>
+    </main>
 </body>
 </html>
