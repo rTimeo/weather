@@ -80,14 +80,14 @@ main{
 }
 
 
-.right{
+.right{ 
     backdrop-filter: blur(20px);
-    padding: 0 0 60px 60px;
+    padding: 0 0 50px 60px;
     border-radius: 10px;
     margin-right: 100px;
     overflow: hidden;
     width: 500px;
-    height: 80vh;
+    height: 70vh;
 
 }
 
